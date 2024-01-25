@@ -100,9 +100,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
    const { productId } = button.dataset;
 
    addToCart(productId);
-
    updateCartQuantity();
-
    showAddedMessage(productId);
    
   });
