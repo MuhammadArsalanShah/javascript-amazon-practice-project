@@ -71,6 +71,7 @@ export function calculateCartQuantity() {
 }
 /*********** Calculate cart quantity function end ***********/
 
+/*********** Update quantity function start ***********/
 export function updateQuantity(productId, newQuantity) {
   cart.forEach((cartItem) => {
     if (cartItem.productId === productId) {
@@ -79,3 +80,18 @@ export function updateQuantity(productId, newQuantity) {
   });
   saveToStorage();
 }
+/************ Update quantity function end ************/
+
+/*********** Update delivery option function start ***********/
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  saveToStorage();
+}
+/************ Update delivery option function end ************/
