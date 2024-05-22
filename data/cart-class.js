@@ -2,18 +2,18 @@ class Cart {
 
   cartItems;
 
-  localStorageKey;
+  #localStorageKey; //private property (can't access outside class)
 
   constructor(localStorageKey) {
 
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage(); 
 
   }
 
   /*********** Load from storage function start ***********/
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() { //private method (can't access outside class)
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     if (!this.cartItems) {
       this.cartItems = [
@@ -34,7 +34,7 @@ class Cart {
 
   /*********** Save to storage function start ***********/
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
   /************ Save to storage function end ************/
 
@@ -42,7 +42,7 @@ class Cart {
   addToCart(productId) {
   
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-    const quantity =  Number(quantitySelector.value);
+    const quantity = Number(quantitySelector.value);
 
     let matchingItem;
 
@@ -112,7 +112,7 @@ class Cart {
   }
   /************ Update delivery option function end ************/
 
-}
+} // Cart class
 
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
