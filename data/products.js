@@ -81,52 +81,37 @@ class Appliance extends Product {
   }
 }
 
-/*
-const date = new Date();
-console.log(date);
-console.log(date.toLocaleTimeString());
-*/
+export let products = [];
 
-/*
-console.log(this);
+export function loadProducts(fun) {
 
-const object2 = {
-  a: 2,
-  b: this.a
-}
-*/
+  const xhr = new XMLHttpRequest();
 
-/*
-function logThis() {
-  console.log('logThis function: ',this);
-}
-
-logThis();
-logThis.call('Hello');
-
-const object3 = {
-  property_1: 'Property 1',
-  property_2: 'Property 2',
-  property_obj: {
-    inner_property: 'inner Property',
-    innerMethod() {
-      console.log('Inside inner object',this);
-    }
-  },
-
-  method() {
-    console.log('Inside object3: this points to -> ', this);
-
-    [1, 2, 3].forEach(function() {
-      console.log('inside foreach: ',this);
+  xhr.addEventListener('load', () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+  
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } 
+      if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+      
     });
-  }
+  
+    console.log('Load Products');
+
+    fun();
+  
+  });
+  
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
 }
 
-object3.property_obj.innerMethod();
-object3.method();
-*/
 
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -827,3 +812,4 @@ export const products = [
   }
   return new Product(productDetails);
 });
+*/
