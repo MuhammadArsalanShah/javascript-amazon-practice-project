@@ -10,12 +10,12 @@ function Cart(localStorageKey) {
       if (!this.cartItems) {
         this.cartItems = [
           {
-            productId: 'myId-001',
+            productId: '58b4fc92-e98c-42aa-8c55-b6b79996769a',
             quantity: 2,
             deliveryOptionId: '1'
           },
           {
-            productId: 'myId-002',
+            productId: '5968897c-4d27-4872-89f6-5bcb052746d7',
             quantity: 1,
             deliveryOptionId: '3'
           }
