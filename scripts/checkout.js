@@ -8,15 +8,25 @@ import { loadCart } from "../data/cart.js";
 
 //Using async await method
 async function loadPage() {
-  
-  await loadProductsFetch();
 
-  await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+  try {
+
+    // throw 'Manual error 1';
+    
+    await loadProductsFetch();
+
+    await new Promise((resolve, reject) => {
+      // throw "Manual error 2";
+      loadCart(() => {
+        // reject('Manual error 3');
+        resolve();
+      });
     });
-  });
 
+  } catch (error) {
+    console.log('Unexpected error occured in trycatch ---', error);
+  }
+  
   renderCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
