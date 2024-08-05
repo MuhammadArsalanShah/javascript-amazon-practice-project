@@ -6,8 +6,27 @@ import { loadCart } from "../data/cart.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
+//Using async await method
+async function loadPage() {
+  
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+
+}
+
+loadPage();
 
 //Using fetch method
+/*
 Promise.all([
   loadProductsFetch()
   ,
@@ -25,7 +44,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 })
-
+*/
 
 // Using promises method
 // Promises don't nest the code
