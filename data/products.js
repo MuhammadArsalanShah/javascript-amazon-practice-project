@@ -1,6 +1,7 @@
 import { formatCurrency } from "../scripts/utils/money.js";
 
 export function getProduct(productId) {
+
   let matchingProduct;
 
   products.forEach((product) => {
@@ -18,6 +19,7 @@ class Product {
   name;
   rating;
   priceCents;
+  keyWords;
 
   constructor (productDetails) {
     this.id = productDetails.id;
@@ -25,6 +27,7 @@ class Product {
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords
   }
 
   getStarsUrl () {

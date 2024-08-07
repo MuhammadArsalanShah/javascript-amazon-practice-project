@@ -84,7 +84,8 @@ export function renderPaymentSummary() {
       });
   
       const orders = await response.json();
-  
+      
+      console.log(orders);
       addOrder(orders);
 
     } catch (error) {

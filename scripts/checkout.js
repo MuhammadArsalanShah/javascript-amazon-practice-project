@@ -2,7 +2,7 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/checkoutHeader.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadCart, loadCartFetch } from "../data/cart.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
@@ -10,18 +10,33 @@ import { loadCart } from "../data/cart.js";
 async function loadPage() {
 
   try {
-
-    // throw 'Manual error 1';
+    // ex: 18i
+    await Promise.all([
     
-    await loadProductsFetch();
+      loadProductsFetch(),
+  
+      new Promise((resolve, reject) => {
+        loadCartFetch(() => {
+          resolve();
+        });
+      })
+  
+    ]);
 
-    await new Promise((resolve, reject) => {
-      // throw "Manual error 2";
-      loadCart(() => {
-        // reject('Manual error 3');
-        resolve();
-      });
-    });
+    // // throw 'Manual error 1';
+    
+    // await loadProductsFetch();
+
+    // await new Promise((resolve, reject) => {
+    //   // throw "Manual error 2";
+    //   // loadCart(() => {
+    //   //   // reject('Manual error 3');
+    //   //   resolve();
+    //   // });
+    //   loadCartFetch(() => {
+    //     resolve();
+    //   });
+    // });
 
   } catch (error) {
     console.log('Unexpected error occured in trycatch ---', error);

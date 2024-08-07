@@ -105,8 +105,13 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 /************ Update delivery option function end ************/
 
 
-
-
+// ex: 18h
+export async function loadCartFetch(fun) {
+  const response = await fetch('https://supersimplebackend.dev/cart');
+  const cartMessage = await response.text();
+  console.log("Load Cart Fetch Method:",cartMessage);
+  fun();
+}
 
 export function loadCart(fun) {
 

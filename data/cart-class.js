@@ -42,7 +42,14 @@ class Cart {
   addToCart(productId) {
   
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-    const quantity = Number(quantitySelector.value);
+    
+    let quantity;
+    
+    if (quantitySelector) {
+      quantity =  Number(quantitySelector.value)
+    } else {
+      quantity = 1;
+    }
 
     let matchingItem;
 

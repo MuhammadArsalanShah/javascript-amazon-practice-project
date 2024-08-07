@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 18</title>
+</head>
+<body>
+  <h1>Exercises 18</h1>
+
+  <script>
+
+    function getMessageHttp() {
+    
+      let xhr = new XMLHttpRequest();
+    
+      xhr.addEventListener('load', () => {
+        const message = xhr.response;
+        console.log("From XMLHttp method: ",message);
+      });
+    
+      xhr.open('GET', 'https://supersimplebackend.dev/greeting');
+      xhr.send();
+    }
+
+    // getMessageHttp();
+
+
+    function getMessageFetch () {
+      fetch('https://supersimplebackend.dev/greeting').then((response) => {
+        return response.text();
+      }).then((message) => {
+        console.log("From Fetch Method: ", message);
+      });
+    }
+
+    // getMessageFetch();
+
+    async function getMessageAsync() {
+     const response = await fetch('https://supersimplebackend.dev/greeting');
+     const message = await response.text();
+     console.log("From Fetch Async Method: ", message);
+    }
+
+    // getMessageAsync();
+
+    async function postMessageAsync() {
+
+      const response = await fetch('https://supersimplebackend.dev/greeting', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: "Arsalan Shah"
+        })
+      });
+
+      const message = await response.text()
+
+      console.log("From Fetch Async Post Method: ", message);
+
+    }
+
+    // postMessageAsync();
+
+    async function getAmazon() {
+      try {
+        const response = await fetch('https://amazon.com');
+        const amazonMessage = await response.json();
+        console.log("From amazon.com Fetch Async Method: ", amazonMessage);
+      } catch (error) {
+        console.log('CORS error. Your request blocked by the backend');
+      }
+    }
+
+    // getAmazon();
+
+    async function postMessageTryCatch() {
+      try {
+        const response = await fetch('https://supersimplebackend.dev/greeting', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.status >= 400) {
+          throw response;
+          
+        }
+
+        const message = await response.json();
+
+        console.log("From Fetch Try Catch Method: ", message);
+
+        } catch (error) {
+          if (error.status === 400) {
+            const errorJson = await error.json();
+            console.log(errorJson.errorMessage);
+          } else {
+            console.log("Network Error. Please try again later");
+          }
+          
+        }
+      
+    }
+
+    // postMessageTryCatch();
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

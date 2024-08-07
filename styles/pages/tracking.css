@@ -38,13 +38,14 @@
 .progress-labels-container {
   display: flex;
   justify-content: space-between;
+  color:  rgb(172, 170, 170);
   font-size: 20px;
-  font-weight: 500;
   margin-bottom: 15px;
 }
 
 .current-status {
-  color: rgb(6, 125, 98);
+  color: rgb(47, 146, 23);
+  font-weight: bold;
 }
 
 @media (max-width: 575px) {
@@ -75,7 +76,8 @@
 
 .progress-bar {
   height: 100%;
-  background-color: green;
+  background: rgb(26,112,3);
+  background: linear-gradient(90deg, rgba(26,112,3,1) 10%, rgba(12,168,63,1) 41%, rgba(21,219,6,1) 100%);
   border-radius: 50px;
   width: 50%;
 }
