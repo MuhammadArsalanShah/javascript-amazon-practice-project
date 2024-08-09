@@ -1,4 +1,5 @@
 import { formatCurrency } from "../scripts/utils/money.js";
+import { showLoader, hideLoader } from "../scripts/utils/loader.js";
 
 export function getProduct(productId) {
 
@@ -88,6 +89,7 @@ export let products = [];
 
 export function loadProductsFetch() {
 
+  showLoader();
   const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
 
     return response.json()
@@ -105,6 +107,8 @@ export function loadProductsFetch() {
       return new Product(productDetails);
       
     });
+
+    hideLoader();
   
     console.log('Load Products Fetch');
   })/*.catch((error) => {
@@ -122,7 +126,7 @@ loadProductsFetch().then(() => {
 */
 
 export function loadProducts(fun) {
-
+  showLoader();
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
@@ -137,7 +141,8 @@ export function loadProducts(fun) {
       return new Product(productDetails);
       
     });
-  
+    
+    hideLoader();
     console.log('Load Products');
 
     fun();

@@ -30,13 +30,11 @@ class Cart {
       ];
     }
   }
-  /*********** Load from storage function end ***********/
 
   /*********** Save to storage function start ***********/
   saveToStorage() {
     localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
-  /************ Save to storage function end ************/
 
   /************ Add to cart function start ************/
   addToCart(productId) {
@@ -67,7 +65,6 @@ class Cart {
 
     this.saveToStorage();
   }
-  /************ Add to cart function end ************/
 
   /*********** Remove from cart function start ***********/
   removeFromCart(productId) {
@@ -80,7 +77,12 @@ class Cart {
       this.saveToStorage();
     })
   }
-  /************ Remove from cart function end ************/
+
+  /*********** Reset cart function start ***********/
+  resetCart() {
+    this.cartItems = [];
+    this.saveToStorage();
+  }
 
   /********** Calculate cart quantity function start **********/
   calculateCartQuantity() {
@@ -92,7 +94,6 @@ class Cart {
 
     return cartQuantity;
   }
-  /*********** Calculate cart quantity function end ***********/
 
   /*********** Update quantity function start ***********/
   updateQuantity(productId, newQuantity) {
@@ -103,7 +104,6 @@ class Cart {
     });
     this.saveToStorage();
   }
-  /************ Update quantity function end ************/
 
   /*********** Update delivery option function start ***********/
   updateDeliveryOption(productId, deliveryOptionId) {
@@ -117,7 +117,6 @@ class Cart {
     matchingItem.deliveryOptionId = deliveryOptionId;
     this.saveToStorage();
   }
-  /************ Update delivery option function end ************/
 
 } // Cart class
 

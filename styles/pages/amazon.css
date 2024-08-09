@@ -158,3 +158,13 @@
   padding: 8px;
   border-radius: 50px;
 }
+.no-item-found {
+  width: 80%;
+  color: #fe6969;
+  text-align: center;
+  line-height: 1.5rem;
+  margin: 35px auto 0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}

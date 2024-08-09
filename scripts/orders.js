@@ -45,9 +45,13 @@ async function renderOrderPage() {
   
       const productDetails = getProduct(product.productId);
 
+      const currentTime = dayjs();
+      const deliveryTime = dayjs(product.estimatedDeliveryTime);
+
+      const deliveredMessage = currentTime < deliveryTime ? 'Arriving on' : 'Delivered on';
+
       orderPageHtml += `
         
-          
           <div class="product-image-container">
             <img src="${productDetails.image}">
           </div>
@@ -57,7 +61,7 @@ async function renderOrderPage() {
               ${productDetails.name}
             </div>
             <div class="product-delivery-date">
-              Arriving on: ${dayjs(product.estimatedDeliveryTime).format("MMMM D")}
+              ${deliveredMessage}: ${dayjs(product.estimatedDeliveryTime).format("MMMM D")}
             </div>
             <div class="product-quantity">
               Quantity: ${product.quantity}

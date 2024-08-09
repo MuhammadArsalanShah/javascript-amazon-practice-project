@@ -26,18 +26,19 @@ async function renderTrackingPage() {
 
           const productDetails = getProduct(product.productId);
 
-          const currentTime = dayjs().unix();
-          const orderTime = dayjs(order.orderTime).unix();
-          const deliveryTime = dayjs(product.estimatedDeliveryTime).unix();
-          
-          let deliveryTimePercent = Math.round(((currentTime - orderTime) / (deliveryTime - orderTime)) * 100);
+          const currentTime = dayjs();
+          const orderTime = dayjs(order.orderTime);
+          const deliveryTime = dayjs(product.estimatedDeliveryTime);
+
+          const deliveredMessage = currentTime < deliveryTime ? 'Arriving on' : 'Delivered on';
+          const deliveryTimePercent = Math.round(((currentTime - orderTime) / (deliveryTime - orderTime)) * 100);
 
           console.log(deliveryTimePercent);
   
           trackingPageHtml = `
   
               <div class="delivery-date">
-                Arriving on ${dayjs(product.estimatedDeliveryTime).format('dddd, MMMM D')}
+                ${deliveredMessage} ${dayjs(product.estimatedDeliveryTime).format('dddd, MMMM D')}
               </div>
   
               <div class="product-info">

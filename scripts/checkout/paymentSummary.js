@@ -8,7 +8,6 @@ export function renderPaymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
 
-
   cart.cartItems.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity
@@ -62,8 +61,8 @@ export function renderPaymentSummary() {
       </div>
     </div>
 
-    <button class="place-order-button button-primary js-place-order-button">
-      Place your order
+    <button class="place-order-button button-primary js-place-order-button" data-tooltip="Please! add item(s) to proceed" ${cart.calculateCartQuantity() <= 0 ? 'disabled' : ''}>
+      Place your order (${cart.calculateCartQuantity()})
     </button>
 
   `;
@@ -72,26 +71,34 @@ export function renderPaymentSummary() {
 
   document.querySelector('.js-place-order-button').addEventListener('click', async () => {
 
-    try {
-      const response = await fetch('https://supersimplebackend.dev/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          cart: cart
-        })
-      });
-  
-      const orders = await response.json();
-      
-      console.log(orders);
-      addOrder(orders);
+    console.log('Cart: ',cart.cartItems.length);
 
-    } catch (error) {
-      console.log('Unexpected error occured in paymentsummary');
+    if (cart.cartItems.length > 0) {
+      try {
+        const response = await fetch('https://supersimplebackend.dev/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            cart: cart
+          })
+        });
+    
+        const orders = await response.json();
+        
+        console.log(orders);
+        addOrder(orders);
+  
+      } catch (error) {
+        console.log('Unexpected error occured in paymentsummary');
+      }
+    } else {
+      console.log('There is no item in the cart');
+      return;
     }
     
+    cart.resetCart();
     window.location.href = 'orders.html';
 
   });

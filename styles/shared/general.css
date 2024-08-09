@@ -25,6 +25,7 @@ input, select, button {
 }
 
 .button-primary {
+  position: relative;
   color: rgb(33, 33, 33);
   background-color: rgb(255, 216, 20);
   border: 1px solid rgb(252, 210, 0);
@@ -42,6 +43,24 @@ input, select, button {
   background: rgb(255, 216, 20);
   border-color: rgb(252, 210, 0);
   box-shadow: none;
+}
+
+.button-primary:disabled {
+  color: rgba(33, 33, 33, 0.6);
+  background-color: rgba(221, 187, 19, 0.5);
+  border: 1px solid rgba(248, 209, 16, 0.5);
+  cursor: not-allowed;
+}
+.button-primary:disabled:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: rgb(102, 102, 102);
+  color: #fff;
 }
 
 .button-secondary {
@@ -99,3 +118,55 @@ select:focus,
 input:focus {
   outline: 2px solid rgb(255, 153, 0);
 }
+/*** Loader CSS  */
+#loader {
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s, visibility 0.5s, color 0.5s;
+  z-index: 1;
+}
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.loader-spinner{
+  width: 48px;
+  height: 48px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation .8s linear infinite;
+  transition: color 0.3s;
+} 
+.loader-spinner::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-bottom-color: #ff9900;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    border-color: #f8f4e3;
+    transform: rotate(360deg);
+  }
+} 
